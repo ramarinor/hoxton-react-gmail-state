@@ -8,9 +8,13 @@ function App() {
 	// console.log(initialEmails);
 	const [emails, setEmails] = useState(initialEmails);
 	const [hideReadEmails, setHideReadEmails] = useState(false);
+	const [tab, setTab] = useState("inbox");
 	let emailsToDisplay = emails;
 	if (hideReadEmails) {
 		emailsToDisplay = emailsToDisplay.filter((email) => !email.read);
+	}
+	if (tab === "starred") {
+		emailsToDisplay = emailsToDisplay.filter((email) => email.starred);
 	}
 
 	function toggleRead(targetEmail) {
@@ -38,15 +42,19 @@ function App() {
 			<nav className="left-menu">
 				<ul className="inbox-list">
 					<li
-						className="item active"
-						// onClick={() => {}}
+						className={tab === "inbox" ? "item active" : "item"}
+						onClick={() => {
+							setTab("inbox");
+						}}
 					>
 						<span className="label">Inbox</span>
 						<span className="count">{emails.length}</span>
 					</li>
 					<li
-						className="item"
-						// onClick={() => {}}
+						className={tab === "starred" ? "item active" : "item"}
+						onClick={() => {
+							setTab("starred");
+						}}
 					>
 						<span className="label">Starred</span>
 						<span className="count">{emails.filter((email) => email.starred).length}</span>
