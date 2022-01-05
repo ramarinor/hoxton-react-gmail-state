@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function App() {
 	// Use initialEmails for state
-	console.log(initialEmails);
+	// console.log(initialEmails);
 	const [emails, setEmails] = useState(initialEmails);
 
 	function toggleRead(targetEmail) {
@@ -37,14 +37,14 @@ function App() {
 						// onClick={() => {}}
 					>
 						<span className="label">Inbox</span>
-						<span className="count">?</span>
+						<span className="count">{emails.length}</span>
 					</li>
 					<li
 						className="item"
 						// onClick={() => {}}
 					>
 						<span className="label">Starred</span>
-						<span className="count">?</span>
+						<span className="count">{emails.filter((email) => email.starred).length}</span>
 					</li>
 
 					<li className="item toggle">
