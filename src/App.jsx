@@ -5,8 +5,27 @@ import { useState } from "react";
 
 function App() {
 	// Use initialEmails for state
-	// console.log(initialEmails);
+	console.log(initialEmails);
 	const [emails, setEmails] = useState(initialEmails);
+
+	function toggleRead(targetEmail) {
+		const newEmails = emails.map((email) => {
+			if (email.id === targetEmail.id) {
+				email.read = !email.read;
+			}
+			return email;
+		});
+		setEmails(newEmails);
+	}
+	function toggleStar(targetEmail) {
+		const newEmails = emails.map((email) => {
+			if (email.id === targetEmail.id) {
+				email.starred = !email.starred;
+			}
+			return email;
+		});
+		setEmails(newEmails);
+	}
 
 	return (
 		<div className="app">
@@ -43,8 +62,8 @@ function App() {
 				{emails.map((email) => {
 					return (
 						<li key={email.id} className={email.read ? "email read" : "email unread"}>
-							<input type="checkbox" defaultChecked={email.read} />
-							<input type="checkbox" className="star-checkbox" defaultChecked={email.starred} />
+							<input type="checkbox" defaultChecked={email.read} onClick={() => toggleRead(email)} />
+							{<input type="checkbox" className="star-checkbox" defaultChecked={email.starred} onClick={() => toggleStar(email)} />}
 							<span>{email.sender}</span>
 							<span>{email.title}</span>
 						</li>
